@@ -41,8 +41,11 @@ namespace VantanSchoolFestival2026
         [Tooltip("チェックポイントの通過数を表示する Text。")]
         [SerializeField] private Text _checkpointText;
 
-        [Tooltip("ブーストの残量を表示する Image。Image Type を Filled にしておくとゲージになります。")]
+        [Tooltip("燃料ゲージの外枠。ブーストのパーツが無いときは、この外枠ごと隠します。")]
         [SerializeField] private Image _boostGauge;
+
+        [Tooltip("燃料ゲージの中身のバー。燃料の量に合わせて横の長さが変わります。")]
+        [SerializeField] private RectTransform _boostFill;
 
         /// <summary>走行タイム（秒）を表示する。</summary>
         public void SetTime(float seconds)
@@ -75,8 +78,21 @@ namespace VantanSchoolFestival2026
             {
                 _boostGauge.gameObject.SetActive(visible);
             }
-            // fillAmount … 0 で空、1 で満タン
-            _boostGauge.fillAmount = amount01;
+
+            if (_boostFill == null) return;
+
+            // 中身のバーの右端を、燃料の量に合わせて動かす（0 で左端、1 で右端）
+            // Image Type を Sliced（9 スライス）にしているので、長さが変わっても丸い端は伸びない
+            Vector2 anchorMax = _boostFill.anchorMax;
+            anchorMax.x = amount01;
+            _boostFill.anchorMax = anchorMax;
+
+            // ほとんど空のときは、つぶれた形が見えないように隠す
+            bool hasEnergy = amount01 > 0.03f;
+            if (_boostFill.gameObject.activeSelf != hasEnergy)
+            {
+                _boostFill.gameObject.SetActive(hasEnergy);
+            }
         }
 
         /// <summary>Text が設定されていれば文字を書き換える（null チェックをまとめたもの）。</summary>
