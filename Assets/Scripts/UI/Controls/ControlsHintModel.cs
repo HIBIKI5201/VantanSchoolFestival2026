@@ -65,6 +65,21 @@ namespace VantanSchoolFestival2026
         public string ControlScheme =>
             _playerInput != null ? _playerInput.currentControlScheme ?? "" : "";
 
+        /// <summary>
+        /// 今使えるアクションの組み合わせを 1 つの数字にして返す。
+        /// この数字が変わったら「車の部品が付け外しされた」と分かる。
+        /// </summary>
+        public int GetAvailabilityKey()
+        {
+            int key = 0;
+            for (int i = 0; i < ActionLabels.Length; i++)
+            {
+                // 使えるアクションの番号のビットを立てる（例：0 番と 2 番が使える → 101）
+                if (IsAvailable(ActionLabels[i].action)) key |= 1 << i;
+            }
+            return key;
+        }
+
         /// <summary>今の操作方法の一覧を作って返す。</summary>
         public List<Entry> BuildEntries()
         {

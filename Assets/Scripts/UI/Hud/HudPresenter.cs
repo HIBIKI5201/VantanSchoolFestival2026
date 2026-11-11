@@ -57,7 +57,6 @@ namespace VantanSchoolFestival2026
         private void Start()
         {
             if (_car == null) _car = FindFirstObjectByType<RCCar>();
-            if (_car != null) _boost = _car.GetComponent<BoostParts>();
             _judge = FindFirstObjectByType<OutOfBoundsJudge>();
         }
 
@@ -77,7 +76,8 @@ namespace VantanSchoolFestival2026
             _view.SetCheckpoints(gm.PassedCheckpointCount, gm.CheckpointCount);
             _view.SetMessage(GetMessage(gm));
 
-            // ブーストパーツは途中で付け外しされるかもしれないので、有効かどうかも見る
+            // ブーストパーツは再生中に付け外しされるかもしれないので、毎フレーム探し直す
+            _boost = _car != null ? _car.GetComponent<BoostParts>() : null;
             bool hasBoost = _boost != null && _boost.isActiveAndEnabled;
             _view.SetBoost(hasBoost, hasBoost ? _boost.Energy01 : 0f);
         }

@@ -7,9 +7,11 @@
 //        PlayerInput（キーボード ⇔ ゲームパッド が変わった）─┐
 //        ActionMapSwitcher（Driving ⇔ DrivingAlt）        ─┼─▶ Presenter ─▶ Model で一覧作成 ─▶ View に表示
 //
-//  【イベントで動く】
-//    毎フレーム調べるのではなく「変わったときだけ」更新しています。
-//    （PlayerInput.onControlsChanged や ActionMapSwitcher.MapChanged に登録）
+//  【いつ表示を作り直すか】
+//    ・キーボード ⇔ ゲームパッド、操作のセットの切り替え … イベントで知らせてもらう
+//      （PlayerInput.onControlsChanged や ActionMapSwitcher.MapChanged に登録）
+//    ・車の部品の付け外し … 知らせてくれる仕組みが無いので、毎フレーム組み合わせを見比べる
+//    どちらも「変わったときだけ」作り直します。
 // =============================================================================
 
 using UnityEngine;
@@ -39,6 +41,9 @@ namespace VantanSchoolFestival2026
 
         private ControlsHintModel _model;
         private ActionMapSwitcher _switcher;
+
+        // 前回表示したときの「使えるアクションの組み合わせ」
+        private int _lastAvailabilityKey;
 
         private void Awake()
         {
@@ -76,6 +81,12 @@ namespace VantanSchoolFestival2026
             Refresh();
         }
 
+        /// <summary>再生中に車の部品が付け外しされたら、表示を作り直す。</summary>
+        private void Update()
+        {
+            if (_model != null && _model.GetAvailabilityKey() != _lastAvailabilityKey) Refresh();
+        }
+
         /// <summary>キーボード ⇔ ゲームパッド が切り替わったとき。</summary>
         private void OnControlsChanged(PlayerInput input) => Refresh();
 
@@ -87,6 +98,7 @@ namespace VantanSchoolFestival2026
         {
             if (_view == null || _model == null) return;
 
+            _lastAvailabilityKey = _model.GetAvailabilityKey();
             string scheme = string.IsNullOrEmpty(_model.ControlScheme) ? "-" : _model.ControlScheme;
             _view.Show(string.Format(_titleFormat, _model.MapName, scheme), _model.BuildEntries());
         }
