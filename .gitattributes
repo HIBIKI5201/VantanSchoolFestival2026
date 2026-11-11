@@ -169,3 +169,11 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# -----------------------------------------------------------------------------
+# RCTutorial 追加分: ドキュメント・設定ファイルはテキストとして扱う（UTF-8）
+# 文字コード/改行の詳細は .editorconfig を参照
+# -----------------------------------------------------------------------------
+*.md                    text
+*.txt                   text
+.editorconfig           text

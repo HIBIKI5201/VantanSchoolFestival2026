@@ -1,0 +1,81 @@
+# =============================================================================
+#  .editorconfig  ―  エディタ共通の書式設定
+# -----------------------------------------------------------------------------
+#  Visual Studio / Rider / VS Code などのエディタは、このファイルを読んで
+#  「文字コード」「改行コード」「インデント」などを自動で合わせてくれます。
+#  チーム全員（と未来の自分）が同じ書式で書けるようにするためのファイルです。
+#
+#  ★ 文字コードについて
+#    すべてのテキストファイルは UTF-8 に固定します。
+#    C# (.cs) だけは「UTF-8 (BOM付き)」にしています。
+#    日本語版 Windows の Visual Studio は BOM が無いファイルを
+#    Shift-JIS と誤認して日本語コメントが文字化けすることがあるためです。
+#
+#  詳しくは Assets/Docs/コーディング規約.md を読んでください。
+# =============================================================================
+
+# このファイルがプロジェクトの一番上の設定であることを示す
+root = true
+
+# -----------------------------------------------------------------------------
+# すべてのファイル共通
+# -----------------------------------------------------------------------------
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# -----------------------------------------------------------------------------
+# C# スクリプト
+# -----------------------------------------------------------------------------
+[*.cs]
+charset = utf-8-bom
+
+# --- 波かっこ・改行（Unity 公式サンプルと同じ Allman スタイル） ---
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# --- this. は付けない ---
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+
+# --- var は型が明らかなときだけ使ってよい ---
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+
+# --- 命名規則 ---------------------------------------------------------------
+# private フィールドは _camelCase（例: _maxSpeed）
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = underscore_camel
+dotnet_naming_rule.private_fields_underscore.severity = suggestion
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.underscore_camel.required_prefix = _
+dotnet_naming_style.underscore_camel.capitalization = camel_case
+
+# 型・メソッド・プロパティは PascalCase（例: RCCar, Move(), MaxSpeed）
+dotnet_naming_rule.types_pascal.symbols = types_and_members
+dotnet_naming_rule.types_pascal.style = pascal
+dotnet_naming_rule.types_pascal.severity = suggestion
+dotnet_naming_symbols.types_and_members.applicable_kinds = class, struct, interface, enum, method, property, event
+dotnet_naming_style.pascal.capitalization = pascal_case
+
+# -----------------------------------------------------------------------------
+# JSON / YAML / Markdown など
+# -----------------------------------------------------------------------------
+[*.{json,inputactions,asmdef,yml,yaml}]
+indent_size = 2
+
+[*.md]
+# Markdown は行末の空白2つが「改行」の意味になるので消さない
+trim_trailing_whitespace = false
+
+# Unity が自動生成するファイルは Unity に任せる（改行は LF）
+[*.{unity,prefab,asset,mat,meta,anim,controller}]
+end_of_line = lf
