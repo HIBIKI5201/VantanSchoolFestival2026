@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "unity-mcp": {
+      "command": "C:\\Users\\takut\\.unity\\relay\\relay_win.exe",
+      "args": [
+        "--mcp",
+        "--project-path",
+        "C:\\Users\\takut\\GameProject\\VantanSchoolFestival2026"
+      ]
+    }
+  }
+}
