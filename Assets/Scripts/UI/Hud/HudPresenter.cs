@@ -39,8 +39,15 @@ namespace VantanSchoolFestival2026
         [TextArea(2, 4)]
         [SerializeField] private string _goalFormat = "GOAL!\n{0} 秒\n<size=24>やり直しボタンでもう一度</size>";
 
+        [Tooltip("コースアウト中に表示する文字。{0} にリスポーンまでの残り秒数が入ります。")]
+        [TextArea(2, 3)]
+        [SerializeField] private string _courseOutFormat = "コースアウト！\n<size=28>コースに戻ろう… {0}</size>";
+
         // 車のブーストパーツ（付いていなければ null）
         private BoostParts _boost;
+
+        // 場外判定係（シーンに無ければ null）
+        private OutOfBoundsJudge _judge;
 
         private void Awake()
         {
@@ -51,6 +58,7 @@ namespace VantanSchoolFestival2026
         {
             if (_car == null) _car = FindFirstObjectByType<RCCar>();
             if (_car != null) _boost = _car.GetComponent<BoostParts>();
+            _judge = FindFirstObjectByType<OutOfBoundsJudge>();
         }
 
         /// <summary>毎フレーム、Model の状態を View に反映する。</summary>
@@ -84,6 +92,11 @@ namespace VantanSchoolFestival2026
                     return Mathf.CeilToInt(gm.CountdownRemaining).ToString();
 
                 case GameState.Playing:
+                    // コースの外に 0.5 秒以上いたら警告を出す（ジャンプ中の一瞬は出さない）
+                    if (_judge != null && _judge.OutTime > 0.5f)
+                    {
+                        return string.Format(_courseOutFormat, Mathf.CeilToInt(_judge.TimeLeft));
+                    }
                     // スタート直後の 1 秒だけ GO! を出す
                     return gm.ElapsedTime < 1f ? _goText : "";
 

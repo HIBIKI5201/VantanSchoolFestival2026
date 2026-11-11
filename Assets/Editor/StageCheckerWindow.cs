@@ -280,6 +280,7 @@ namespace VantanSchoolFestival2026.EditorTools
             CheckGameManager();
             CheckCamera();
             CheckKillZone();
+            CheckCourseArea();
             CheckUI();
             CheckPostProcess();
             CheckMissingScripts();
@@ -533,6 +534,38 @@ namespace VantanSchoolFestival2026.EditorTools
             else
             {
                 Add(Severity.Ok, "落下ゾーン", "落ちても自動でリスポーンします。");
+            }
+        }
+
+        /// <summary>
+        /// 場外判定（コースエリア + 場外判定係）のチェック。
+        /// どちらも無いシーンは「場外判定なし」として OK にする（練習用シーンなど）。
+        /// </summary>
+        private void CheckCourseArea()
+        {
+            int areas = FindInScene<CourseArea>().Length;
+            OutOfBoundsJudge[] judges = FindInScene<OutOfBoundsJudge>();
+
+            if (areas == 0 && judges.Length == 0) return;   // 場外判定を使わないシーン
+
+            if (judges.Length == 0)
+            {
+                Add(Severity.Warning, "場外判定", "CourseArea はありますが OutOfBoundsJudge がありません。コースアウトしても戻されません。",
+                    null, "判定係を置く", () =>
+                    {
+                        var go = new GameObject("OutOfBoundsJudge");
+                        go.AddComponent<OutOfBoundsJudge>();
+                        Undo.RegisterCreatedObjectUndo(go, "Add OutOfBoundsJudge");
+                        Selection.activeGameObject = go;
+                    });
+            }
+            else if (areas == 0)
+            {
+                Add(Severity.Warning, "場外判定", "OutOfBoundsJudge はありますが CourseArea が 1 つもありません。場外判定は動きません。", judges[0].gameObject);
+            }
+            else
+            {
+                Add(Severity.Ok, "場外判定", "コースエリア " + areas + " 個で場外を判定します。", judges[0].gameObject);
             }
         }
 
