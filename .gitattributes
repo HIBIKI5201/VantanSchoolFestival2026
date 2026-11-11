@@ -177,3 +177,8 @@ LightingData.asset     binary
 *.md                    text
 *.txt                   text
 .editorconfig           text
+
+# docs/ の画像は GitHub Pages で表示するため、LFS に入れず通常のファイルとして保存する
+# （GitHub Pages は LFS の中身を配信しないので、LFS に入れると画像が表示されない）
+docs/**/*.png           -filter -diff -merge -text
+docs/**/*.jpg           -filter -diff -merge -text

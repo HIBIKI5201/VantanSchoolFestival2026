@@ -15,7 +15,7 @@
 | 改行コード | CRLF（Windows 標準） |
 | インデント | スペース 4 つ（タブは使わない） |
 
-- これらは [.editorconfig](../../.editorconfig) で自動設定されます。エディタの設定を変える必要はありません。
+- これらはプロジェクト直下の `.editorconfig` で自動設定されます。エディタの設定を変える必要はありません。
 - **なぜ BOM 付き？** 日本語版 Windows の Visual Studio は、BOM が無いファイルを Shift-JIS と誤認して日本語コメントが文字化けすることがあるためです。
 - 文字化けしたら：Visual Studio の「ファイル > 保存オプションの詳細設定」で「Unicode (UTF-8 シグネチャ付き)」を選んで保存し直してください。
 
@@ -136,3 +136,7 @@ public void Respawn() { ... }
 - 車（`RCCar`）は入力デバイスを知らない。`SetDriveInput()` / `SetBoost()` / `RequestJump()` / `RequestRespawn()` で命令を受け取るだけ。
 - キーボード・ゲームパッドの入力は `PlayerController` の `PlayerCarInput` が受け取り、車に命令を送る。
 - 新しい操作方法（AI・リプレイなど）を作るときは、`PlayerCarInput` と同じように車へ命令を送るコンポーネントを作る。
+
+---
+
+[目次に戻る](../index.md)

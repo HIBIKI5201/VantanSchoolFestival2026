@@ -38,7 +38,11 @@
 
 | 対象 | ライセンス |
 | --- | --- |
-| `Assets/Scripts/`・`Assets/Editor/`・`Assets/Docs/` など自作のファイル | _（プロジェクトの作成者が決めて記入してください）_ |
+| `Assets/Scripts/`・`Assets/Editor/`・`docs/` など自作のファイル | _（プロジェクトの作成者が決めて記入してください）_ |
 | `.gitignore` | CC0-1.0（github/gitignore） |
 | `.gitattributes` | MIT（gitattributes/gitattributes） |
 | Unity パッケージ（`Packages/` で導入しているもの） | 各パッケージの `LICENSE.md` を参照 |
+
+---
+
+[目次に戻る](../index.md)

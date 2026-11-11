@@ -1,0 +1,22 @@
+# =============================================================================
+#  GitHub Pages（Jekyll）の設定
+#  リポジトリの Settings → Pages で「main ブランチの /docs フォルダ」を公開すると、
+#  このフォルダの .md ファイルが Web ページとして表示されます。
+# =============================================================================
+title: はじめての Unity ラジコン
+description: Unity 初心者向け 90 分授業の教材とマニュアル
+lang: ja
+theme: jekyll-theme-cayman
+
+# .md へのリンクを、自動で .html へのリンクに変換する
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+relative_links:
+  enabled: true
+optional_front_matter:
+  remove_originals: true
+titles_from_headings:
+  enabled: true
+  strip_title: false

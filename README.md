@@ -64,17 +64,21 @@ Assets/
 ├─ Materials/     … 色や質感の設定（Nature/ に地面の色テクスチャと Terrain レイヤー）
 ├─ Models/        … スクリプトで作った簡単なメッシュ（円すい・岩など）
 ├─ Settings/      … URP の設定・入力設定 (RCInputActions)・ポストプロセス (PostProcessProfile)
-├─ ThirdParty/    … 外部から取得したアセット（ライセンスは Docs/ライセンス.md）
-└─ Docs/          … 説明書
+└─ ThirdParty/    … 外部から取得したアセット（ライセンスは docs/manual/license.md）
 ```
 
 ## 説明書
 
 | ファイル | 内容 |
 | --- | --- |
-| [Assets/Docs/チュートリアル手順.md](Assets/Docs/チュートリアル手順.md) | 練習課題（Lesson 1 ～ 4） |
-| [Assets/Docs/コーディング規約.md](Assets/Docs/コーディング規約.md) | スクリプトを書くときのルール |
-| [Assets/Docs/ライセンス.md](Assets/Docs/ライセンス.md) | 使用しているアセットのライセンス |
+| [docs/index.md](docs/index.md) | 目次（90 分授業の教材とマニュアル） |
+| [docs/lesson/](docs/lesson/00_teacher-guide.md) | 授業の教材（先生用の進め方と 1〜6 章） |
+| [docs/manual/](docs/manual/setup.md) | マニュアル（セットアップ・部品一覧・規約・ライセンスなど） |
+
+同じ内容を次の 2 か所で読めます。
+
+- **Web**：GitHub Pages（https://hibiki5201.github.io/VantanSchoolFestival2026/）
+- **Unity エディタ**：メニュー **VantanSchoolFestival2026 → マニュアル・教材**
 
 ## 文字コードについて
 
