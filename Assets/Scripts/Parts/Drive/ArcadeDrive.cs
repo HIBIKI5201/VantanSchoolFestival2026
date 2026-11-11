@@ -16,9 +16,9 @@ namespace VantanSchoolFestival2026
     /// <summary>素直に加速・旋回する、操作しやすい駆動方式。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/駆動方式/アーケード (ArcadeDrive)")]
     [ComponentSummary(
-        "アーケードゲーム風の駆動方式です。素直に加速し、ハンドルを切った方向にピタッと曲がります。いちばん操作しやすい走り方です。",
-        "RCCar に 1 つだけ付けます。ほかの駆動方式と付け替えて違いを比べてみましょう。",
-        "DriveBase（親クラス）/ DriftDrive / TankDrive")]
+        "車の走り方を決める「駆動方式」の 1 つです。素直に加速して、ハンドルを切った方へピタッと曲がります。いちばん運転しやすい走り方です。",
+        "RCCar に 1 つだけ付けます。ほかの駆動方式と付け替えて、走り方を比べてみましょう。",
+        "DriftDrive / TankDrive")]
     public class ArcadeDrive : DriveBase
     {
         [Header("速さ")]

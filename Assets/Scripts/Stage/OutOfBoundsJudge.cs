@@ -23,9 +23,9 @@ namespace VantanSchoolFestival2026
     /// <summary>車がコースエリアの外に出たら、少し待ってからリスポーンさせる。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/場外判定 (OutOfBoundsJudge)")]
     [ComponentSummary(
-        "場外判定係です。車がどのコースエリア（CourseArea）にも入っていない時間が続くと、最後のチェックポイントへ戻します。",
-        "シーンに 1 つだけ置きます（Course などのオブジェクトに付ければ OK）。Grace Time を長くすると、コースアウトしてから戻されるまでの時間が長くなります。",
-        "CourseArea / RCCar / HudPresenter（画面に「コースアウト」と表示）")]
+        "コースアウトを見張る係です。車が走ってよい範囲（CourseArea）の外に出たまま少したつと、最後のチェックポイントに戻します。",
+        "シーンに 1 つだけ置きます。Grace Time を長くすると、戻されるまでの時間が長くなります。",
+        "CourseArea")]
     [DisallowMultipleComponent]
     public class OutOfBoundsJudge : MonoBehaviour
     {

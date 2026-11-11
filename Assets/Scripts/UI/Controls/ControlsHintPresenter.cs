@@ -20,9 +20,9 @@ namespace VantanSchoolFestival2026
     /// <summary>入力の状態を ControlsHintView に表示させる。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/UI/操作方法 つなぎ役 (ControlsHintPresenter)")]
     [ComponentSummary(
-        "今の操作方法（ActionMap とキーボード/ゲームパッド）を調べ、ControlsHintView に表示させます（MVP の Presenter）。キー割り当てを変えると表示も自動で変わります。",
-        "View と同じ GameObject に付けます。Player Input が空なら、シーンの PlayerInput を自動で探します。",
-        "ControlsHintView / ControlsHintModel / PlayerInput / ActionMapSwitcher")]
+        "今の操作方法を調べて、画面の左下に表示させる係です。キーの割り当てを変えると、表示も自動で変わります。",
+        "GameUI の ControlsHint に付いています。",
+        "ControlsHintView / PlayerController")]
     [DisallowMultipleComponent]
     public class ControlsHintPresenter : MonoBehaviour
     {
@@ -34,7 +34,7 @@ namespace VantanSchoolFestival2026
         [SerializeField] private PlayerInput _playerInput;
 
         [Header("文言")]
-        [Tooltip("見出しの書式。{0} に ActionMap 名、{1} にコントロールスキーム名が入ります。")]
+        [Tooltip("見出しの文章。{0} に操作のセットの名前（Driving など）、{1} にキーボードかゲームパッドかが入ります。")]
         [SerializeField] private string _titleFormat = "操作方法  [{0} / {1}]";
 
         private ControlsHintModel _model;

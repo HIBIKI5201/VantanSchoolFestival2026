@@ -260,7 +260,7 @@ namespace VantanSchoolFestival2026.EditorTools
                 if (folder != section)
                 {
                     section = folder;
-                    var header = new Label(folder == "lesson" ? "授業の教材" : folder == "manual" ? "マニュアル" : folder);
+                    var header = new Label(SectionTitle(folder));
                     header.style.unityFontStyleAndWeight = FontStyle.Bold;
                     header.style.marginTop = 10; header.style.marginLeft = 8; header.style.marginBottom = 2;
                     header.style.opacity = 0.7f;
@@ -294,6 +294,18 @@ namespace VantanSchoolFestival2026.EditorTools
                 label.style.backgroundColor = selected ? new Color(0.25f, 0.5f, 0.9f, 0.35f) : StyleKeyword.Null;
                 label.style.unityFontStyleAndWeight = selected ? FontStyle.Bold : FontStyle.Normal;
             });
+        }
+
+        /// <summary>フォルダ名から、目次に出す見出しを決める。</summary>
+        private static string SectionTitle(string folder)
+        {
+            switch (folder)
+            {
+                case "lesson": return "授業の教材";
+                case "advanced": return "上級者向け";
+                case "manual": return "マニュアル";
+                default: return folder;
+            }
         }
 
         /// <summary>ページの最初の「# 見出し」をタイトルとして読む。</summary>

@@ -40,9 +40,9 @@ namespace VantanSchoolFestival2026
     // AddComponentMenu … Inspector の「Add Component」ボタンで表示される場所を決める
     [AddComponentMenu("VantanSchoolFestival2026/入力/プレイヤー入力 (PlayerCarInput)")]
     [ComponentSummary(
-        "キーボードやゲームパッドの入力を受け取り、車(RCCar)に「進め」「ジャンプ」などの命令を送ります。",
-        "PlayerInput と同じ GameObject に付け、Target Car に操作したい車を入れます。空なら自動でシーンの RCCar を探します。PlayerInput の Behavior は Send Messages にしてください。",
-        "PlayerInput / ActionMapSwitcher / RCCar")]
+        "キーボードやゲームパッドの操作を受け取って、車を動かす係です。",
+        "PlayerController に付いています。Target Car に動かしたい車を入れます。空のままなら、シーンにある車を自動で見つけます。",
+        "PlayerInput / RCCar")]
     // RequireComponent … このコンポーネントを付けると PlayerInput も自動で付く
     [RequireComponent(typeof(PlayerInput))]
     // DisallowMultipleComponent … 同じ GameObject に 2 つ付けられないようにする

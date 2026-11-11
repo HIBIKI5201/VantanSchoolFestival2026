@@ -42,9 +42,9 @@ namespace VantanSchoolFestival2026
     /// </summary>
     [AddComponentMenu("VantanSchoolFestival2026/Core/RCカー本体 (RCCar)")]
     [ComponentSummary(
-        "ラジコンカーの本体です。接地判定・リスポーン地点・速度倍率など、部品どうしが共通で使う情報を持っています。このコンポーネントだけでは車は動きません。",
-        "駆動方式（Add Component > VantanSchoolFestival2026 > 駆動方式）を 1 つ付けると走れるようになります。ジャンプなどの追加パーツは好きなだけ付けられます。",
-        "操作は別オブジェクト PlayerController の PlayerCarInput から届きます。")]
+        "ラジコンカーの本体です。これだけでは走りません。",
+        "「駆動方式」の部品を 1 つ付けると走れるようになります。ジャンプなどの「追加パーツ」は、いくつでも付けられます。",
+        "ArcadeDrive / DriftDrive / TankDrive / JumpParts / BoostParts")]
     [RequireComponent(typeof(Rigidbody))]
     [DisallowMultipleComponent]
     public class RCCar : MonoBehaviour
@@ -62,7 +62,7 @@ namespace VantanSchoolFestival2026
         [SerializeField] private LayerMask _groundLayers = ~0;   // ~0 は「すべてのレイヤー」という意味
 
         [Header("安定性")]
-        [Tooltip("重心の位置（車のローカル座標）。Y をマイナスにするほど転びにくくなります。")]
+        [Tooltip("車の重さの中心の位置。Y をマイナスにするほど転びにくくなります。")]
         [SerializeField] private Vector3 _centerOfMass = new Vector3(0f, -0.3f, 0f);
 
         [Header("リスポーン")]

@@ -19,9 +19,9 @@ namespace VantanSchoolFestival2026
     /// <summary>ボタンを押している間スピードアップする追加パーツ。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/追加パーツ/ブースト (BoostParts)")]
     [ComponentSummary(
-        "ボタンを押している間スピードアップする追加パーツです。使うとエネルギーが減り、離すと回復します。",
-        "RCCar に付けると、ブーストボタン（左 Shift など）で加速できます。画面にゲージが表示されます。",
-        "RCCar（BoostMultiplier）/ HudPresenter")]
+        "ボタンを押している間だけスピードアップする追加パーツです。使うと燃料が減り、離すと少しずつ回復します。",
+        "RCCar に付けると、左 Shift キーで加速できます。画面に燃料のゲージが出ます。",
+        "RCCar")]
     [RequireComponent(typeof(RCCar))]
     [DisallowMultipleComponent]
     public class BoostParts : MonoBehaviour

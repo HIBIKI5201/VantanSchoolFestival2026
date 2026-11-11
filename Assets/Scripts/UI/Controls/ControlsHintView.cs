@@ -20,9 +20,9 @@ namespace VantanSchoolFestival2026
     /// <summary>操作方法の一覧を表示する。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/UI/操作方法 表示 (ControlsHintView)")]
     [ComponentSummary(
-        "画面左下に操作方法（どのキーで何ができるか）を表示します（MVP の View）。",
-        "Title Text と Body Text を設定します。表示する中身は ControlsHintPresenter が渡します。",
-        "ControlsHintPresenter / ControlsHintModel")]
+        "画面の左下に、操作方法（どのキーで何ができるか）を表示する係です。",
+        "GameUI の ControlsHint に付いています。",
+        "ControlsHintPresenter")]
     [DisallowMultipleComponent]
     public class ControlsHintView : MonoBehaviour
     {

@@ -16,8 +16,8 @@ namespace VantanSchoolFestival2026
     /// <summary>通過するとリスポーン地点が更新される中間地点。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/チェックポイント (Checkpoint)")]
     [ComponentSummary(
-        "中間地点です。通過すると、そこがリスポーン（やり直し）地点になります。",
-        "コースの途中に置きます。黄色い線の向きが、リスポーンしたときの車の向きになります。",
+        "コースの途中の中間地点です。通ると、落ちたときにここからやり直せるようになります。",
+        "コースの途中に置きます。黄色い線の向きが、やり直したときの車の向きになります。",
         "GameManager / KillZone")]
     [RequireComponent(typeof(Collider))]
     [DisallowMultipleComponent]

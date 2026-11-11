@@ -20,8 +20,8 @@ namespace VantanSchoolFestival2026
     [AddComponentMenu("VantanSchoolFestival2026/追加パーツ/ジャンプ (JumpParts)")]
     [ComponentSummary(
         "ジャンプできるようになる追加パーツです。",
-        "RCCar に付けると、ジャンプボタン（Space など）でジャンプできます。Air Jumps を増やすと空中でもジャンプできます。",
-        "RCCar（JumpRequested イベント）")]
+        "RCCar に付けると、Space キーでジャンプできます。Air Jumps を増やすと、空中でもう一度ジャンプできます。",
+        "RCCar")]
     [RequireComponent(typeof(RCCar))]
     [DisallowMultipleComponent]
     public class JumpParts : MonoBehaviour

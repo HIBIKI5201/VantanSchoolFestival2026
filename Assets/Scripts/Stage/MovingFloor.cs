@@ -18,15 +18,15 @@ namespace VantanSchoolFestival2026
     /// <summary>2 点の間を往復する床。乗っている車も運ぶ。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/動く床 (MovingFloor)")]
     [ComponentSummary(
-        "2 点の間を往復する床です。上に乗った車も一緒に運びます。",
-        "Move Offset に動く距離を入れます。選択すると移動先が緑の線で表示されます。",
-        "")]
+        "行ったり来たりする床です。上に乗った車も一緒に運びます。",
+        "Move Offset に、どこまで動くかを入れます。選ぶと、動く先が緑の線で表示されます。",
+        "RCCar")]
     [RequireComponent(typeof(Rigidbody))]
     [DisallowMultipleComponent]
     public class MovingFloor : MonoBehaviour
     {
         [Header("動き")]
-        [Tooltip("スタート位置からどれだけ動くか（ワールド座標、メートル）。")]
+        [Tooltip("今の場所からどれだけ動くか（メートル）。Z に 6 を入れると、奥へ 6 メートル動きます。")]
         [SerializeField] private Vector3 _moveOffset = new Vector3(0f, 0f, 6f);
 
         [Tooltip("片道にかかる時間（秒）。")]

@@ -18,9 +18,9 @@ namespace VantanSchoolFestival2026
     /// <summary>GameManager などの状態を HudView に表示させる。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/UI/HUD つなぎ役 (HudPresenter)")]
     [ComponentSummary(
-        "GameManager（タイム・状態）と車のブーストパーツの値を読み取り、HudView に表示させます（MVP の Presenter）。",
-        "HudView と同じ Canvas に付けます。View を空にすると、同じ GameObject の HudView を自動で使います。",
-        "HudView / GameManager / BoostParts")]
+        "ゲームの様子（タイムやゴールしたかどうか）を調べて、画面に出す文章を決める係です。",
+        "GameUI に付いています。Goal Format などで、画面に出す文章を変えられます。",
+        "HudView / GameManager")]
     [DisallowMultipleComponent]
     public class HudPresenter : MonoBehaviour
     {

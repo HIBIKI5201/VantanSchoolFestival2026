@@ -18,9 +18,9 @@ namespace VantanSchoolFestival2026
     /// <summary>その場で回転できる、戦車のような駆動方式。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/駆動方式/タンク (TankDrive)")]
     [ComponentSummary(
-        "戦車のような駆動方式です。止まっていてもその場で回転できます。",
-        "RCCar に 1 つだけ付けます。細かい動きが必要なコースで便利です。",
-        "DriveBase（親クラス）/ ArcadeDrive / DriftDrive")]
+        "車の走り方を決める「駆動方式」の 1 つです。戦車のように、止まっていてもその場でくるっと回れます。",
+        "RCCar に 1 つだけ付けます。細かく動きたいときに便利です。",
+        "ArcadeDrive / DriftDrive")]
     public class TankDrive : DriveBase
     {
         [Header("速さ")]

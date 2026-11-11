@@ -15,8 +15,8 @@ namespace VantanSchoolFestival2026
     /// <summary>入った車をリスポーンさせるエリア。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/落下ゾーン (KillZone)")]
     [ComponentSummary(
-        "落下ゾーンです。入った車を最後のチェックポイント（またはスタート地点）に戻します。",
-        "コースの下に大きく敷いておきます。見た目（MeshRenderer）は不要です。",
+        "落ちたら戻される場所です。車が入ると、最後に通ったチェックポイント（まだ通っていなければスタート地点）に戻ります。",
+        "コースの下に、大きく広げて置きます。",
         "Checkpoint / StartPoint")]
     [RequireComponent(typeof(Collider))]
     [DisallowMultipleComponent]

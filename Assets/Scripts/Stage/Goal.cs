@@ -17,8 +17,8 @@ namespace VantanSchoolFestival2026
     /// <summary>車が入るとゴールになるエリア。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/ゴール (Goal)")]
     [ComponentSummary(
-        "車が入るとゴールになるエリアです。",
-        "Collider の Is Trigger を ON にして置きます。GameManager がタイムを確定します。",
+        "車が入るとゴールになる場所です。",
+        "コースの最後に置きます。",
         "GameManager / Checkpoint")]
     [RequireComponent(typeof(Collider))]
     [DisallowMultipleComponent]

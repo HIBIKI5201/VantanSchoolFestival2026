@@ -14,9 +14,9 @@ namespace VantanSchoolFestival2026
     /// <summary>通った車を加速させる床。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/加速床 (SpeedPad)")]
     [ComponentSummary(
-        "加速床です。上を通った車を前に押し出し、しばらくスピードアップさせます。",
-        "回転させて置くと、矢印（Z 軸）の向きに加速します。",
-        "RCCar（AddTemporarySpeedUp）")]
+        "通るとスピードアップする床です。",
+        "置いて向きを回すと、矢印の向きに加速します。",
+        "RCCar")]
     [RequireComponent(typeof(Collider))]
     [DisallowMultipleComponent]
     public class SpeedPad : MonoBehaviour

@@ -28,7 +28,7 @@ namespace VantanSchoolFestival2026
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/コースエリア (CourseArea)")]
     [ComponentSummary(
         "車が走ってよい範囲を表す、見えない箱です。この箱から全部出てしまうと「コースアウト」になります。",
-        "コースに沿ってすき間なく並べます。ジャンプする場所や動く床の上も、空中までおおうように置きましょう。シーンに OutOfBoundsJudge が 1 つ必要です。",
+        "コースに沿って、すき間なく並べます。シーンに OutOfBoundsJudge も 1 つ必要です。",
         "OutOfBoundsJudge / Checkpoint")]
     [RequireComponent(typeof(BoxCollider))]
     [DisallowMultipleComponent]

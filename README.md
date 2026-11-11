@@ -71,8 +71,9 @@ Assets/
 
 | ファイル | 内容 |
 | --- | --- |
-| [docs/index.md](docs/index.md) | 目次（90 分授業の教材とマニュアル） |
-| [docs/lesson/](docs/lesson/00_teacher-guide.md) | 授業の教材（先生用の進め方と 1〜6 章） |
+| [docs/index.md](docs/index.md) | 目次（70 分授業の教材・上級者向け・マニュアル） |
+| [docs/lesson/](docs/lesson/00_teacher-guide.md) | 授業の教材（先生用の進め方と 1〜4 章・まとめ） |
+| [docs/advanced/](docs/advanced/01_debug.md) | 上級者向け（デバッグ・スクリプト・しくみ） |
 | [docs/manual/](docs/manual/setup.md) | マニュアル（セットアップ・部品一覧・規約・ライセンスなど） |
 
 同じ内容を次の 2 か所で読めます。

@@ -25,9 +25,9 @@ namespace VantanSchoolFestival2026
     /// <summary>HUD（画面上の情報表示）の見た目。値を受け取って表示するだけ。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/UI/HUD 表示 (HudView)")]
     [ComponentSummary(
-        "タイム・カウントダウン・チェックポイント・ブーストゲージを画面に表示します（MVP の View）。自分では何も判断せず、HudPresenter から言われた値を表示するだけです。",
-        "Canvas の中に置き、表示先の Text / Image をドラッグして設定します。",
-        "HudPresenter")]
+        "画面にタイム・カウントダウン・チェックポイントの数・燃料ゲージを表示する係です。",
+        "GameUI に付いています。文字の大きさや場所を変えたいときは、TimerText などの子どもオブジェクトを選んで変えます。",
+        "HudPresenter / GameManager")]
     [DisallowMultipleComponent]
     public class HudView : MonoBehaviour
     {

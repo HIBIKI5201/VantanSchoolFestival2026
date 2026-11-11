@@ -18,8 +18,8 @@ namespace VantanSchoolFestival2026
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/バンパー (Bumper)")]
     [ComponentSummary(
         "ぶつかった車をはじき飛ばす障害物です。",
-        "普通の Collider（Is Trigger は OFF）と一緒に置きます。Bounce Power ではじく強さを変えられます。",
-        "")]
+        "置くだけで使えます。Bounce Power ではじく強さを変えられます。",
+        "RCCar")]
     [RequireComponent(typeof(Collider))]
     [DisallowMultipleComponent]
     public class Bumper : MonoBehaviour

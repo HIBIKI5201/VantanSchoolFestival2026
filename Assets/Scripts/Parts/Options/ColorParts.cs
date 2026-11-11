@@ -18,9 +18,9 @@ namespace VantanSchoolFestival2026
     /// <summary>指定した Renderer の色を変える追加パーツ。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/追加パーツ/ボディカラー (ColorParts)")]
     [ComponentSummary(
-        "車の色を変える追加パーツです。再生していなくても色が変わります。",
-        "Targets に色を変えたい Renderer（車体など）をドラッグし、Body Color を選びます。",
-        "")]
+        "車の色を変える追加パーツです。ゲームを再生しなくても、すぐに色が変わります。",
+        "Targets に色を変えたい部分（車体の Body など）をドラッグして、Body Color で色を選びます。",
+        "RCCar")]
     [DisallowMultipleComponent]
     // ExecuteAlways … 再生していないときもスクリプトを動かす（色をすぐ見られるように）
     [ExecuteAlways]
@@ -31,7 +31,7 @@ namespace VantanSchoolFestival2026
         [SerializeField] private Color _bodyColor = new Color(0.9f, 0.2f, 0.2f);
 
         [Header("対象")]
-        [Tooltip("色を変える Renderer（見た目の部品）。車体のメッシュをドラッグして入れてください。")]
+        [Tooltip("色を変えたい部分。Hierarchy から車体（Body など）をドラッグして入れてください。")]
         [SerializeField] private Renderer[] _targets = new Renderer[0];
 
         // シェーダーの色プロパティの名前

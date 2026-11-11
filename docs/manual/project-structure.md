@@ -8,10 +8,10 @@ VantanSchoolFestival2026/
 ├─ Assets/
 │   ├─ Scenes/        … シーン（00 が完成版、01〜03 が練習用）
 │   ├─ Scripts/       … ゲームのスクリプト
-│   │   ├─ Common/    … 共通（ComponentSummary 属性）
+│   │   ├─ Common/    … いろいろな部品で使う共通のもの
 │   │   ├─ Core/      … 車本体・ゲーム進行
 │   │   ├─ Input/     … プレイヤーの入力
-│   │   ├─ UI/        … 画面表示（MVP: Hud / Controls）
+│   │   ├─ UI/        … 画面の表示（タイム・操作方法）
 │   │   ├─ Parts/
 │   │   │   ├─ Drive/   … 駆動方式（付け替えると走り方が変わる）
 │   │   │   └─ Options/ … 追加パーツ（ジャンプ・ブースト・色）
@@ -23,7 +23,7 @@ VantanSchoolFestival2026/
 │   │   ├─ Nature/    … 木・岩・水
 │   │   └─ System/    … GameManager・PlayerController・カメラ・Volume・UI
 │   ├─ Materials/     … 色や質感
-│   ├─ Models/        … スクリプトで作った簡単なメッシュ
+│   ├─ Models/        … 木や岩などの形
 │   └─ Settings/      … URP の設定・入力設定・ポストプロセス
 ├─ .editorconfig      … 文字コードや書き方の設定
 └─ README.md
@@ -34,9 +34,9 @@ VantanSchoolFestival2026/
 | シーン | 内容 | 使う章 |
 | --- | --- | --- |
 | `00_Sample` | 完成版。自然の中を走る約 1 km のコース | [1 章](../lesson/01_intro.md) |
-| `01_Lesson_Parts` | 平らな広場。部品の付け替えを試す | [2 章](../lesson/02_components.md)・[5 章](../lesson/05_script.md) |
-| `02_Lesson_Stage` | 床とスタート地点だけ。コースを作る | [3 章](../lesson/03_stage.md) |
-| `03_Lesson_Debug` | わざと壊してある。問題を見つけて直す | [4 章](../lesson/04_debug.md) |
+| `01_Lesson_Parts` | 平らな広場。部品の付け替えを試す | [2 章](../lesson/02_components.md)・[上級 2](../advanced/02_script.md) |
+| `02_Lesson_Stage` | 床とスタート地点だけ。コースを作る | [3 章](../lesson/03_stage.md)・[4 章](../lesson/04_finish.md) |
+| `03_Lesson_Debug` | わざと壊してある。問題を見つけて直す | [上級 1](../advanced/01_debug.md) |
 
 ## シーンに置くもの（基本セット）
 
@@ -46,8 +46,8 @@ VantanSchoolFestival2026/
 | --- | --- |
 | GameManager | ゲームの進行（カウントダウン・タイム・ゴール） |
 | PlayerController | キーボード・ゲームパッドの入力を受け取って、車に命令する |
-| MainCamera | 画面を映すカメラ（CinemachineBrain 付き） |
-| FollowCamera | 車を追いかける仮想カメラ（Cinemachine） |
+| MainCamera | 画面を映すカメラ |
+| FollowCamera | 車を追いかけて、MainCamera を動かす係（Cinemachine） |
 | GameUI | タイム・メッセージ・操作方法の表示 |
 | GlobalVolume | 画面全体の色味（ポストプロセス） |
 

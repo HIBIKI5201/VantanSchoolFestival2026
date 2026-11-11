@@ -41,9 +41,9 @@ namespace VantanSchoolFestival2026
     /// </summary>
     [AddComponentMenu("VantanSchoolFestival2026/Core/ゲーム進行 (GameManager)")]
     [ComponentSummary(
-        "ゲームの進行役です。スタート地点への配置、カウントダウン、タイム計測、チェックポイント、ゴール判定、やり直しを管理します。",
-        "シーンに 1 つだけ置きます。Require All Checkpoints を ON にすると、すべてのチェックポイントを通らないとゴールできません。",
-        "RCCar / StartPoint / Checkpoint / Goal / HudPresenter")]
+        "ゲームの進行係です。スタートの合図（3, 2, 1, GO!）、タイム計測、ゴールの判定をします。",
+        "シーンに 1 つだけ置きます。Require All Checkpoints に✓を入れると、チェックポイントを全部通らないとゴールできなくなります。",
+        "StartPoint / Checkpoint / Goal")]
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {

@@ -21,9 +21,9 @@ namespace VantanSchoolFestival2026
     /// <summary>勢いが残って横に滑る駆動方式。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/駆動方式/ドリフト (DriftDrive)")]
     [ComponentSummary(
-        "横滑りする駆動方式です。曲がっても勢いが残り、ツーッと滑ります。",
-        "RCCar に 1 つだけ付けます。Grip を小さくすると氷の上のように滑ります。",
-        "DriveBase（親クラス）/ ArcadeDrive / TankDrive")]
+        "車の走り方を決める「駆動方式」の 1 つです。曲がっても勢いが残って、ツーッと横に滑ります。",
+        "RCCar に 1 つだけ付けます。Grip を小さくすると、氷の上のようによく滑ります。",
+        "ArcadeDrive / TankDrive")]
     public class DriftDrive : DriveBase
     {
         [Header("速さ")]

@@ -1,82 +1,61 @@
 # コンポーネント一覧
 
-このプロジェクトで作ったコンポーネントの一覧です。
-**Add Component** → **VantanSchoolFestival2026** の下に、分類ごとに並んでいます。
-Unity の中では、各コンポーネントの **「▶ このコンポーネントについて」** でも同じ説明が読めます。
+このプロジェクトで作った部品（コンポーネント）の一覧です。
+Inspector の **Add Component** → **VantanSchoolFestival2026** の下に、種類ごとに並んでいます。
+Unity の中では、それぞれの部品の **「▶ このコンポーネントについて」** でも同じ説明が読めます。
 
-## Core（中心になる部品）
+## 車の本体とゲームの進行
 
-| コンポーネント | 役割 | 主な設定 |
+| 部品 | 何をするか | よく変える数字 |
 | --- | --- | --- |
-| **RCCar** | 車の本体。接地判定・リスポーン地点・速度倍率を管理する。これだけでは動かない | Ground Check Distance（地面を探す距離）、Center Of Mass（重心） |
-| **GameManager** | ゲームの進行。カウントダウン・タイム・チェックポイント・ゴール・やり直し | Countdown Seconds、Require All Checkpoints（全部通らないとゴールできない） |
+| **RCCar** | ラジコンカーの本体。これだけでは走らない | — |
+| **GameManager** | ゲームの進行係。スタートの合図・タイム・ゴールの判定 | Countdown Seconds（スタートまでの秒数）、Require All Checkpoints（チェックポイントを全部通らないとゴールできない） |
 
-## 入力
+## 操作（PlayerController に付いている）
 
-| コンポーネント | 役割 | 主な設定 |
+| 部品 | 何をするか | よく変える数字 |
 | --- | --- | --- |
-| **PlayerCarInput** | PlayerInput から届いた入力を、車への命令に変える | Target Car（操作する車。空なら自動で探す） |
-| **ActionMapSwitcher** | Tab キーで操作方法（ActionMap）を切り替える | Map Names（切り替える順番） |
-
-詳しくは [入力と操作方法](input.md) を見てください。
+| **PlayerCarInput** | キーボードやゲームパッドの操作を受け取って、車を動かす | Target Car（動かす車） |
+| **ActionMapSwitcher** | Tab キーで、操作のキーを W A S D ⇔ 矢印キーに切り替える | — |
 
 ## 駆動方式（車に 1 つだけ付ける）
 
-| コンポーネント | 走り方 | 主な設定 |
+| 部品 | 走り方 | よく変える数字 |
 | --- | --- | --- |
-| **ArcadeDrive** | 素直に加速して、ピタッと曲がる | Max Speed、Acceleration、Turn Speed |
-| **DriftDrive** | 勢いが残って横に滑る | Grip（小さいほど滑る） |
-| **TankDrive** | 止まっていてもその場で回転できる | Turn Speed |
+| **ArcadeDrive** | 素直に加速して、ピタッと曲がる | Max Speed（いちばん速いスピード）、Turn Speed（曲がる速さ） |
+| **DriftDrive** | 勢いが残って、横に滑る | Grip（小さいほど滑る） |
+| **TankDrive** | 止まっていても、その場で回れる | Turn Speed（回る速さ） |
 
-すべて `DriveBase`（駆動方式のひな形）を継承しています。自分で作る方法は [5 章](../lesson/05_script.md) を見てください。
+## 追加パーツ（いくつでも付けられる）
 
-## 追加パーツ（好きなだけ付けられる）
-
-| コンポーネント | できるようになること | 主な設定 |
+| 部品 | できるようになること | よく変える数字 |
 | --- | --- | --- |
-| **JumpParts** | ジャンプ | Jump Power、Air Jumps（空中で追加ジャンプできる回数） |
-| **BoostParts** | 押している間スピードアップ | Speed Multiplier、Max Energy |
-| **ColorParts** | 車の色を変える | Body Color、Targets（色を変える Renderer） |
+| **JumpParts** | Space キーでジャンプ | Jump Power（ジャンプの強さ）、Air Jumps（空中でジャンプできる回数） |
+| **BoostParts** | 左 Shift キーを押している間スピードアップ | Speed Multiplier（何倍の速さか）、Max Energy（燃料の量） |
+| **ColorParts** | 車の色を変える | Body Color（色）、Targets（色を変える部分） |
 
-## ステージ部品
+## コースの部品
 
-| コンポーネント | 役割 | 主な設定 |
+| 部品 | 何をするか | よく変える数字 |
 | --- | --- | --- |
-| **StartPoint** | スタート位置と向き。シーンに 1 つ | — |
-| **Goal** | 入るとゴール | Goal Effect（ゴール時に表示するもの） |
-| **Checkpoint** | 中間地点。通るとリスポーン地点になる | Inactive / Active Visual |
-| **KillZone** | 入ると最後のチェックポイントへ戻す（落下・水） | — |
-| **SpeedPad** | 通ると加速する床 | Push Power、Speed Multiplier、Duration |
-| **Bumper** | ぶつかるとはじき飛ばす | Bounce Power |
-| **MovingFloor** | 2 点の間を往復する床。乗った車も運ぶ | Move Offset、Travel Time、Wait Time |
-| **CourseArea** | 走ってよい範囲（見えない箱）。コースに沿って並べる | — |
-| **OutOfBoundsJudge** | 場外判定係。CourseArea の外にいる時間が続くと戻す | Grace Time（外にいられる秒数） |
+| **StartPoint** | スタートの場所と向き。シーンに 1 つ | — |
+| **Goal** | 入るとゴール | — |
+| **Checkpoint** | 中間地点。通ると、落ちたときにここから再開できる | — |
+| **KillZone** | 入ると前の場所に戻される（落下・水） | — |
+| **SpeedPad** | 通るとスピードアップ | Push Power（押し出す強さ）、Duration（速くなる時間） |
+| **Bumper** | ぶつかると、はじき飛ばされる | Bounce Power（はじく強さ） |
+| **MovingFloor** | 行ったり来たりする床。乗った車も運ぶ | Move Offset（どこまで動くか）、Travel Time（片道の時間） |
+| **CourseArea** | 走ってよい範囲を表す見えない箱。ここから出るとコースアウト | — |
+| **OutOfBoundsJudge** | コースアウトを見張る係 | Grace Time（コースの外にいられる秒数） |
 
-### 場外判定のしくみ
+## 画面の表示（GameUI に付いている）
 
-```
-[CourseArea] [CourseArea] [CourseArea] …  ← コースに沿って並べる
-      └── 入った / 出た ──▶ OutOfBoundsJudge ──▶ Grace Time を超えたら Respawn
-```
-
-- ジャンプする谷の上や、動く床の通り道も CourseArea でおおっておきます。
-- 外に出ている間は、画面に「コースアウト！」と残り秒数が表示されます。
-- CourseArea が 1 つも無いシーンでは、OutOfBoundsJudge は自動で休みます。
-
-## UI（画面表示）
-
-画面のスクリプトは **MVP** という形で、役割を 3 つに分けています。
-
-| 役割 | 何をするか | コンポーネント |
-| --- | --- | --- |
-| Model | データとルール | GameManager、RCCar、ControlsHintModel |
-| View | 表示するだけ | **HudView**、**ControlsHintView** |
-| Presenter | Model を読んで View に表示させる | **HudPresenter**、**ControlsHintPresenter** |
-
-| コンポーネント | 表示するもの |
+| 部品 | 何を表示するか |
 | --- | --- |
-| HudView / HudPresenter | タイム、カウントダウン、チェックポイント数、ブーストゲージ、コースアウト |
-| ControlsHintView / ControlsHintPresenter | 画面左下の操作方法（キー割り当てを変えると自動で変わる） |
+| **HudView** / **HudPresenter** | タイム・カウントダウン・チェックポイントの数・燃料ゲージ・「コースアウト」 |
+| **ControlsHintView** / **ControlsHintPresenter** | 画面左下の操作方法 |
+
+> 💡 プログラムがどんな考え方で作られているかは、[上級 3. しくみを知ろう](../advanced/03_how-it-works.md) で説明しています。
 
 ---
 

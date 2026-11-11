@@ -16,8 +16,8 @@ namespace VantanSchoolFestival2026
     /// <summary>車がスタートする位置と向き。</summary>
     [AddComponentMenu("VantanSchoolFestival2026/ステージ/スタート地点 (StartPoint)")]
     [ComponentSummary(
-        "車がスタートする位置と向きを決める目印です。ゲーム画面には映りません。",
-        "シーンに 1 つだけ置きます。青い矢印（Z 軸）の向きが車の向きになります。",
+        "車がスタートする場所と向きを決める目印です。ゲーム画面には映りません。",
+        "シーンに 1 つだけ置きます。青い矢印の向きが、車の向きになります。",
         "GameManager")]
     [DisallowMultipleComponent]
     public class StartPoint : MonoBehaviour

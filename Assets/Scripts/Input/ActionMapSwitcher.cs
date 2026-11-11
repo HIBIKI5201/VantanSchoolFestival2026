@@ -29,15 +29,15 @@ namespace VantanSchoolFestival2026
     /// </summary>
     [AddComponentMenu("VantanSchoolFestival2026/Core/操作切り替え (ActionMapSwitcher)")]
     [ComponentSummary(
-        "Tab キー（ゲームパッドは Start）を押すたびに、操作方法（ActionMap）を Driving ⇔ DrivingAlt のように順番に切り替えます。",
-        "PlayerInput と同じ GameObject に付けます。Map Names に切り替えたい ActionMap 名を並べます。",
-        "PlayerInput / ControlsHintPresenter（切り替えると画面左下の表示も変わります）")]
+        "Tab キーを押すたびに、操作に使うキーを「W A S D」と「矢印キー」で切り替えます。",
+        "PlayerController に付いています。外すと Tab キーで切り替わらなくなります。",
+        "PlayerCarInput")]
     [RequireComponent(typeof(PlayerInput))]
     [DisallowMultipleComponent]
     public class ActionMapSwitcher : MonoBehaviour
     {
         [Header("切り替える ActionMap")]
-        [Tooltip("順番に切り替える ActionMap の名前。RCInputActions に存在する名前を正確に書いてください（大文字小文字も区別されます）。")]
+        [Tooltip("切り替える操作のセット（ActionMap）の名前。RCInputActions にある名前を、大文字・小文字も同じに書いてください。")]
         [SerializeField] private string[] _mapNames = { "Driving", "DrivingAlt" };
 
         // 今、_mapNames の何番目を使っているか
