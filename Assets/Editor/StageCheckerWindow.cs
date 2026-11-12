@@ -76,6 +76,9 @@ namespace VantanSchoolFestival2026.EditorTools
         // シーンが変わったら自動で再チェックするか
         private bool _autoRefresh = true;
 
+        // Scene ビューに「走れる場所」を表示するか（ウィンドウを閉じると OFF になる）
+        [SerializeField] private bool _showDrivableArea;
+
         // ---------------------------------------------------------------------
         // ウィンドウを開く
         // ---------------------------------------------------------------------
@@ -143,12 +146,18 @@ namespace VantanSchoolFestival2026.EditorTools
             EditorApplication.hierarchyChanged += OnHierarchyChanged;
             EditorSceneManager.sceneOpened += OnSceneOpened;
             RunChecks();
+
+            // スクリプトの再読み込みのあとも、表示の ON / OFF を引き継ぐ
+            if (_showDrivableArea) DrivableAreaOverlay.SetEnabled(true);
         }
 
         private void OnDisable()
         {
             EditorApplication.hierarchyChanged -= OnHierarchyChanged;
             EditorSceneManager.sceneOpened -= OnSceneOpened;
+
+            // このウィンドウが表示を ON にしていたら、閉じるときに OFF にする
+            if (_showDrivableArea) DrivableAreaOverlay.SetEnabled(false);
         }
 
         private void OnHierarchyChanged()
@@ -177,9 +186,20 @@ namespace VantanSchoolFestival2026.EditorTools
 
                 _autoRefresh = GUILayout.Toggle(_autoRefresh, "自動で再チェック", EditorStyles.toolbarButton, GUILayout.Width(110));
 
+                // 走れる場所・段差を Scene ビューに表示する
+                bool show = GUILayout.Toggle(_showDrivableArea, "走れる場所を表示", EditorStyles.toolbarButton, GUILayout.Width(120));
+                if (show != _showDrivableArea)
+                {
+                    _showDrivableArea = show;
+                    DrivableAreaOverlay.SetEnabled(show);
+                }
+
                 // FlexibleSpace … 残りの幅を空ける（以降の要素を右に寄せる）
                 GUILayout.FlexibleSpace();
             }
+
+            // 表示中だけ、調べる範囲などの設定を出す
+            if (_showDrivableArea) DrawDrivableAreaSettings();
 
             // --- まとめ ---
             int errors = _results.FindAll(r => r.Severity == Severity.Error).Count;
@@ -213,6 +233,36 @@ namespace VantanSchoolFestival2026.EditorTools
                 DrawResult(result);
             }
             EditorGUILayout.EndScrollView();
+        }
+
+        /// <summary>「走れる場所を表示」の設定と、色の説明を描く。</summary>
+        private void DrawDrivableAreaSettings()
+        {
+            using (new EditorGUILayout.VerticalScope("box"))
+            {
+                EditorGUILayout.LabelField("Scene ビューで見ている場所のまわりに、色付きのマスを表示しています。", EditorStyles.wordWrappedMiniLabel);
+
+                // BeginChangeCheck / EndChangeCheck … 値が変わったかどうかを調べる
+                EditorGUI.BeginChangeCheck();
+                DrivableAreaOverlay.Radius = EditorGUILayout.Slider(new GUIContent("調べる範囲（m）", "見ている場所から、どこまで調べるか。広くすると重くなります。"), DrivableAreaOverlay.Radius, 10f, 80f);
+                DrivableAreaOverlay.CellSize = EditorGUILayout.Slider(new GUIContent("マスの大きさ（m）", "小さくすると細かく調べられますが、重くなります。"), DrivableAreaOverlay.CellSize, 0.5f, 3f);
+                DrivableAreaOverlay.MaxSlope = EditorGUILayout.Slider(new GUIContent("登れる坂（度）", "これより急な坂は赤で表示します。"), DrivableAreaOverlay.MaxSlope, 10f, 60f);
+                if (EditorGUI.EndChangeCheck()) DrivableAreaOverlay.MarkDirty();
+
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    if (GUILayout.Button("調べ直す", GUILayout.Width(80))) DrivableAreaOverlay.MarkDirty();
+                    EditorGUILayout.LabelField("段差の高さは、車（RCCar）の Max Step Height で決まります。", EditorStyles.wordWrappedMiniLabel);
+                }
+
+                // 色ごとのマスの数
+                EditorGUILayout.LabelField(
+                    "緑（走れる）" + DrivableAreaOverlay.DrivableCount +
+                    "　黄（乗り越えられる段差）" + DrivableAreaOverlay.SmallStepCount +
+                    "　赤（止まる・登れない）" + DrivableAreaOverlay.BlockedCount +
+                    "　紫（落ちる）" + DrivableAreaOverlay.FallCount + " マス",
+                    EditorStyles.wordWrappedMiniLabel);
+            }
         }
 
         /// <summary>チェック結果 1 行を描く。</summary>
