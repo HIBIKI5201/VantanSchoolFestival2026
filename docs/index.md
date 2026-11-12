@@ -43,6 +43,7 @@ Unity もプログラミングも初めての人が、**ラジコンカーのゲ
 | ページ | 内容 |
 | --- | --- |
 | [セットアップ](manual/setup.md) | Unity のインストールと、プロジェクトの開き方 |
+| [Unity 操作のコツ](manual/editor-shortcuts.md) | Scene ビューの動かし方・ショートカット・スナップなどの便利な置き方 |
 | [プロジェクトの構成](manual/project-structure.md) | フォルダ・シーン・プレハブの場所 |
 | [コンポーネント一覧](manual/components.md) | 全部の部品の説明と、よく変える数字 |
 | [入力と操作方法](manual/input.md) | 操作のキーと、キーの割り当ての変え方 |

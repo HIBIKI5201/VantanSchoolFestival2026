@@ -38,6 +38,8 @@
 
 `Assets/Prefabs/Nature/` には、木や岩があります。コースの周りに置いて、景色を作りましょう。
 
+> 📖 **その他の便利機能**：木を 1 本置いたら **Ctrl + D** で複製して並べると早いです。**Ctrl + Shift** を押しながら動かすと、地面の上にピタッと乗せられます。くわしくは [Unity 操作のコツ](../manual/editor-shortcuts.md) を見てください。
+
 | 飾り | 説明 |
 | --- | --- |
 | Tree_Round / Tree_Round_Yellow | 丸い木（緑・黄色） |
