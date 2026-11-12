@@ -55,8 +55,8 @@ namespace VantanSchoolFestival2026
 
             // --- 1. 速度を「前向き」と「横向き」に分ける -------------------------
             // Dot … 2 つのベクトルがどれだけ同じ向きか（＝前向きの速さ）
-            float forwardSpeed = Vector3.Dot(flat, transform.forward);
-            Vector3 sideways = flat - transform.forward * forwardSpeed;
+            float forwardSpeed = Vector3.Dot(flat, Forward);
+            Vector3 sideways = flat - Forward * forwardSpeed;
 
             // --- 2. 前向きの速さをアクセルで変える -------------------------------
             float maxSpeed = _maxSpeed * Car.SpeedMultiplier;
@@ -76,7 +76,7 @@ namespace VantanSchoolFestival2026
             // ここが「滑る」ポイント。一気に 0 にせず、ゆっくり減らす
             sideways = Vector3.Lerp(sideways, Vector3.zero, _grip * control * deltaTime);
 
-            Body.linearVelocity = transform.forward * forwardSpeed + sideways + vertical;
+            Body.linearVelocity = Forward * forwardSpeed + sideways + vertical;
 
             // --- 4. 曲がる ------------------------------------------------------
             float speedFactor = Mathf.InverseLerp(0f, 3f, Mathf.Abs(forwardSpeed));

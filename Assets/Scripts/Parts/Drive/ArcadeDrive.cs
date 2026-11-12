@@ -60,7 +60,7 @@ namespace VantanSchoolFestival2026
 
             // 「車の向き × 目標の速さ」に向かって、今の速度を少しずつ近づける
             // → 横向きの速度も 0 に近づくので、横滑りしない
-            Vector3 targetVelocity = transform.forward * targetSpeed;
+            Vector3 targetVelocity = Forward * targetSpeed;
             flat = Vector3.MoveTowards(flat, targetVelocity, rate * control * deltaTime);
 
             Body.linearVelocity = flat + vertical;

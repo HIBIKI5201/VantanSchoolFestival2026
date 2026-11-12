@@ -43,7 +43,7 @@ namespace VantanSchoolFestival2026
             SplitVelocity(out Vector3 flat, out Vector3 vertical);
 
             // 前後はバックも同じ速さ
-            Vector3 targetVelocity = transform.forward * (input.y * _maxSpeed * Car.SpeedMultiplier);
+            Vector3 targetVelocity = Forward * (input.y * _maxSpeed * Car.SpeedMultiplier);
             flat = Vector3.MoveTowards(flat, targetVelocity, _acceleration * control * deltaTime);
             Body.linearVelocity = flat + vertical;
 

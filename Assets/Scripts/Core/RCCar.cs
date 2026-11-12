@@ -62,13 +62,12 @@ namespace VantanSchoolFestival2026
         [SerializeField] private LayerMask _groundLayers = ~0;   // ~0 は「すべてのレイヤー」という意味
 
         [Header("安定性")]
-        [Tooltip("車の重さの中心の位置。Y をマイナスにするほど転びにくくなります。")]
-        [SerializeField] private Vector3 _centerOfMass = new Vector3(0f, -0.3f, 0f);
+        [Tooltip("車の重さの中心の位置。Y をマイナスにするほど転びにくくなります（タイヤの下まで下げると、ほとんど転ばなくなります）。")]
+        [SerializeField] private Vector3 _centerOfMass = new Vector3(0f, -0.5f, 0f);
 
-        [Header("段差を乗り越える")]
-        [Tooltip("この高さ（メートル）までの段差なら、ぶつからずに自動で乗り越えます。0 にすると乗り越えません。")]
-        [Range(0f, 1f)]
-        [SerializeField] private float _maxStepHeight = 0.3f;
+        [Tooltip("車をまっすぐ（地面に沿った向き）に保とうとする強さ。大きいほど、段差やジャンプで傾いてもすぐ戻ります。0 にすると戻しません。")]
+        [Range(0f, 30f)]
+        [SerializeField] private float _uprightStrength = 12f;
 
         [Header("リスポーン")]
         [Tooltip("リスポーン時、目標地点からどれだけ上に出現させるか（メートル）。床にめり込むのを防ぎます。")]
@@ -101,8 +100,30 @@ namespace VantanSchoolFestival2026
         /// <summary>地面に触れているなら true。FixedUpdate ごとに更新される。</summary>
         public bool IsGrounded { get; private set; }
 
-        /// <summary>自動で乗り越えられる段差の高さ（メートル）。ステージチェッカーの表示にも使う。</summary>
-        public float MaxStepHeight => _maxStepHeight;
+        /// <summary>
+        /// 車の真下の地面の向き（地面に垂直な向き）。空中では真上。
+        /// 駆動方式は、この向きに垂直な方向（＝地面に沿った方向）に車を押す。
+        /// </summary>
+        public Vector3 GroundNormal { get; private set; } = Vector3.up;
+
+        /// <summary>
+        /// 乗り越えられる段差の高さの目安（メートル）。ステージチェッカーの表示に使う。
+        /// タイヤ（丸い当たり判定）の半径の半分くらいまでなら、転がるように乗り越えられる。
+        /// </summary>
+        public float MaxStepHeight
+        {
+            get
+            {
+                float radius = 0f;
+                foreach (SphereCollider wheel in GetComponentsInChildren<SphereCollider>())
+                {
+                    // 大きさ（スケール）も考えた、本当の半径
+                    Vector3 s = wheel.transform.lossyScale;
+                    radius = Mathf.Max(radius, wheel.radius * Mathf.Max(s.x, Mathf.Max(s.y, s.z)));
+                }
+                return radius > 0f ? radius * 0.5f : 0.05f;
+            }
+        }
 
         /// <summary>
         /// 運転してよいか。GameManager がカウントダウン中やゴール後に false にする。
@@ -139,11 +160,8 @@ namespace VantanSchoolFestival2026
         private float _speedUpMultiplier = 1f;
         private float _speedUpEndTime = 0f;
 
-        // 車の当たり判定（段差を調べるときに、車の大きさを知るために使う）
-        private BoxCollider _box;
-
-        // 段差の左右の調べる位置（毎回作らないように、ここで用意しておく）
-        private static readonly float[] StepProbeSides = { 0f, 0.8f, -0.8f };
+        // 駆動方式から伝えられた「曲がる速さ」（度 / 秒）
+        private float _turnRate;
 
         // ---------------------------------------------------------------------
         // Unity のイベント
@@ -156,7 +174,6 @@ namespace VantanSchoolFestival2026
         private void Awake()
         {
             Body = GetComponent<Rigidbody>();
-            _box = GetComponent<BoxCollider>();
 
             // 重心を下げて転びにくくする
             Body.centerOfMass = _centerOfMass;
@@ -181,75 +198,60 @@ namespace VantanSchoolFestival2026
             IsGrounded = Physics.Raycast(
                 transform.position,             // 光線のスタート地点
                 -transform.up,                  // 方向（車から見て下）
+                out RaycastHit groundHit,       // 当たった場所の情報がここに入る
                 _groundCheckDistance,           // 長さ
                 _groundLayers,                  // 対象レイヤー
                 QueryTriggerInteraction.Ignore  // トリガー(ゴールなど)は地面扱いしない
             );
+            GroundNormal = IsGrounded ? groundHit.normal : Vector3.up;
 
-            // 低い段差があれば乗り越える
-            if (_maxStepHeight > 0f) TryStepUp();
+            // 曲がる速さを、物理演算の回転に反映する（ぶつかって勝手に回る動きもここで消える）
+            ApplyTurn();
+
+            // 傾きすぎないように戻す（地面では地面の傾きに、空中では水平に合わせる）
+            if (_uprightStrength > 0f) KeepUpright(IsGrounded ? GroundNormal : Vector3.up);
         }
 
         /// <summary>
-        /// 進む先の足元に低い段差があれば、車を少し持ち上げて乗り越えさせる。
+        /// 車の上の向きを targetUp に近づける。前後・左右に傾く勢いも弱めて、
+        /// 段差やジャンプのあとにぐらぐら揺れ続けたり、ひっくり返ったりしないようにする。
         /// </summary>
-        /// <remarks>
-        /// 車の当たり判定は四角い箱なので、数センチの段差でも前の角が引っかかって止まってしまう。
-        /// そこで、次の 3 つを光線(Ray)で調べて、全部 OK なら段差の高さぶん車を持ち上げる。
-        ///   1. 足元のすぐ前に、何かの面がある（＝段差か壁がある）
-        ///   2. 「乗り越えられる高さ」の上には何もない（＝高い壁ではない）
-        ///   3. 段差の上に、乗れる面がある
-        /// </remarks>
-        private void TryStepUp()
+        /// <param name="targetUp">目標の上の向き（地面の上なら地面の向き、空中なら真上）</param>
+        private void KeepUpright(Vector3 targetUp)
         {
-            if (_box == null || !IsGrounded || !CanDrive) return;
-
             Vector3 up = transform.up;
 
-            // 進む向き：走っていればその向き、止まっていればアクセルの向き
-            Vector3 flatVelocity = Vector3.ProjectOnPlane(Body.linearVelocity, up);
-            Vector3 dir;
-            if (flatVelocity.sqrMagnitude > 0.25f) dir = flatVelocity.normalized;
-            else if (Mathf.Abs(DriveInput.y) > 0.1f) dir = transform.forward * Mathf.Sign(DriveInput.y);
-            else return;
+            // Cross … 「今の上の向き」から「目標の上の向き」へ回すための回転の軸を求める
+            Vector3 toUpright = Vector3.Cross(up, targetUp);
+            Body.AddTorque(toUpright * _uprightStrength, ForceMode.Acceleration);
 
-            // 車の箱の大きさ（スケールも考える）と、底の真ん中の位置
-            Vector3 half = Vector3.Scale(_box.size * 0.5f, transform.lossyScale);
-            Vector3 bottom = transform.TransformPoint(_box.center) - up * half.y;
+            // 前後・左右に傾く勢いだけを弱める（曲がる向きの回転は駆動方式に任せる）
+            Vector3 angular = Body.angularVelocity;
+            Vector3 yaw = up * Vector3.Dot(angular, up);
+            Vector3 tilt = angular - yaw;
+            Body.angularVelocity = yaw + tilt * (1f - Mathf.Clamp01(_uprightStrength * 0.3f * Time.fixedDeltaTime));
+        }
 
-            // 車の中心から、進む向きの端までの距離 + 少し先まで調べる
-            float reach = Mathf.Abs(Vector3.Dot(dir, transform.forward)) * half.z
-                        + Mathf.Abs(Vector3.Dot(dir, transform.right)) * half.x;
-            float look = reach + 0.25f + flatVelocity.magnitude * Time.fixedDeltaTime;
-            Vector3 sideAxis = Vector3.Cross(up, dir).normalized * half.x;
+        /// <summary>
+        /// 車の「上の向き」を軸にした回転（左右に曲がる動き）を、駆動方式が決めた速さにする。
+        /// </summary>
+        /// <remarks>
+        /// 段差や壁にぶつかると、車に「くるくる回る勢い」が残ることがある。
+        /// 上の向きを軸にした回転は、駆動方式が決めた速さだけにするので、
+        /// ぶつかった後に勝手に向きが変わったり、回り続けたりしなくなる。
+        /// 前後・左右に傾く回転は物理演算に任せるので、坂や段差では自然に傾く。
+        /// </remarks>
+        private void ApplyTurn()
+        {
+            Vector3 up = transform.up;
+            Vector3 angular = Body.angularVelocity;
 
-            float bestRise = 0f;
-            foreach (float side in StepProbeSides)   // 車の真ん中・右・左の 3 か所で調べる
-            {
-                Vector3 low = bottom + up * 0.04f + sideAxis * side;
+            // 今の回転の勢いから「上の向きを軸にした成分」を取り除いて、決めた速さに置きかえる
+            Vector3 tilt = angular - up * Vector3.Dot(angular, up);
+            Body.angularVelocity = tilt + up * (_turnRate * Mathf.Deg2Rad);
 
-                // 1. 足元のすぐ前に面があるか
-                if (!Physics.Raycast(low, dir, out RaycastHit wall, look, _groundLayers, QueryTriggerInteraction.Ignore)) continue;
-                // ゆるい坂は段差ではない（坂は駆動方式がそのまま登る）
-                if (Vector3.Dot(wall.normal, up) > 0.7f) continue;
-
-                // 2. 乗り越えられる高さの上に、何もないか（あれば高い壁）
-                Vector3 high = low + up * _maxStepHeight;
-                if (Physics.Raycast(high, dir, look, _groundLayers, QueryTriggerInteraction.Ignore)) continue;
-
-                // 3. 段差の上の面の高さを、上から光線を当てて調べる
-                Vector3 above = high + dir * (wall.distance + 0.1f);
-                if (!Physics.Raycast(above, -up, out RaycastHit top, _maxStepHeight + 0.05f, _groundLayers, QueryTriggerInteraction.Ignore)) continue;
-                if (Vector3.Dot(top.normal, up) < 0.7f) continue;   // 上の面が急すぎる
-
-                float rise = Vector3.Dot(top.point - bottom, up);
-                if (rise > 0.005f && rise <= _maxStepHeight) bestRise = Mathf.Max(bestRise, rise);
-            }
-
-            if (bestRise <= 0f) return;
-
-            // 段差の高さぶん持ち上げる（少しだけ余分に上げて、角に引っかからないようにする）
-            Body.position += up * (bestRise + 0.02f);
+            // 次の物理演算で駆動方式がまた伝えるまで 0 にしておく（駆動方式が無ければ曲がらない）
+            _turnRate = 0f;
         }
 
         // ---------------------------------------------------------------------
@@ -262,6 +264,14 @@ namespace VantanSchoolFestival2026
         {
             // ClampMagnitude … 長さが 1 を超えないようにする（斜め入力で速くなりすぎないように）
             DriveInput = Vector2.ClampMagnitude(input, 1f);
+        }
+
+        /// <summary>
+        /// 曲がる速さ（度 / 秒）を伝える。プラスで右回り。駆動方式が毎回の物理演算で呼ぶ。
+        /// </summary>
+        public void SetTurnRate(float degreesPerSecond)
+        {
+            _turnRate = degreesPerSecond;
         }
 
         /// <summary>ブーストする / やめる。</summary>

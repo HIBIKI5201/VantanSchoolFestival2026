@@ -48,7 +48,13 @@ namespace VantanSchoolFestival2026
         /// 前方向の速さ（メートル/秒）。前進ならプラス、バックならマイナス。
         /// UI 表示などに使える。
         /// </summary>
-        public float ForwardSpeed => Vector3.Dot(Body.linearVelocity, transform.forward);
+        public float ForwardSpeed => Vector3.Dot(Body.linearVelocity, Forward);
+
+        /// <summary>
+        /// 地面に沿った「前」の向き。車が段差で少し上を向いても、地面と平行な向きのまま。
+        /// （車の前の向きをそのまま使うと、上を向いたときに車を空へ押し出してしまうため）
+        /// </summary>
+        protected Vector3 Forward => Vector3.ProjectOnPlane(transform.forward, Car.GroundNormal).normalized;
 
         /// <summary>
         /// virtual … 子クラスで「上書き(override)」してもよいメソッド。
@@ -91,17 +97,21 @@ namespace VantanSchoolFestival2026
         protected void SplitVelocity(out Vector3 flat, out Vector3 vertical)
         {
             Vector3 v = Body.linearVelocity;
-            // ProjectOnPlane … ベクトルを「面」に押しつぶす（車の上方向の成分を取り除く）
-            flat = Vector3.ProjectOnPlane(v, transform.up);
+            // ProjectOnPlane … ベクトルを「面」に押しつぶす（地面に垂直な成分を取り除く）
+            flat = Vector3.ProjectOnPlane(v, Car.GroundNormal);
             vertical = v - flat;
         }
 
-        /// <summary>車を Y 軸まわりに回転させる。</summary>
-        /// <param name="degrees">回転する角度（度）。プラスで右回り。</param>
+        /// <summary>車を左右に曲げる。</summary>
+        /// <param name="degrees">今回（1 回の物理演算）で曲がる角度（度）。プラスで右回り。</param>
+        /// <remarks>
+        /// 車の向きを直接書き換えると、段差にぶつかったときの物理の回転とぶつかり合ってしまう。
+        /// そこで「1 秒あたり何度曲がるか（回転の速さ）」に直して RCCar に伝え、
+        /// RCCar が物理演算の回転の速さとして設定する。
+        /// </remarks>
         protected void Turn(float degrees)
         {
-            // MoveRotation … Rigidbody を物理演算と相性よく回転させる
-            Body.MoveRotation(Body.rotation * Quaternion.Euler(0f, degrees, 0f));
+            Car.SetTurnRate(degrees / Time.fixedDeltaTime);
         }
     }
 }

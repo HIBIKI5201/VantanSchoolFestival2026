@@ -252,7 +252,7 @@ namespace VantanSchoolFestival2026.EditorTools
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     if (GUILayout.Button("調べ直す", GUILayout.Width(80))) DrivableAreaOverlay.MarkDirty();
-                    EditorGUILayout.LabelField("段差の高さは、車（RCCar）の Max Step Height で決まります。", EditorStyles.wordWrappedMiniLabel);
+                    EditorGUILayout.LabelField("乗り越えられる段差の高さは、車のタイヤ（丸い当たり判定）の大きさで決まります。", EditorStyles.wordWrappedMiniLabel);
                 }
 
                 // 色ごとのマスの数
