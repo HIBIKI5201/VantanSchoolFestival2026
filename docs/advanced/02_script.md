@@ -4,6 +4,8 @@
 > **使うシーン**：`Assets/Scenes/01_Lesson_Parts`
 > **目安**：15 分
 
+![01_Lesson_Parts：作った部品を、この広場の車に付けて走らせる](../images/scene-01-lesson-parts.png)
+
 ## スクリプトってなに？
 
 授業の 2 章で付け替えた **ArcadeDrive** や **DriftDrive** は、C# で書かれた **スクリプト**（プログラムのファイル）でできています。

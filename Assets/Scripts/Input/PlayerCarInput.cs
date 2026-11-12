@@ -114,7 +114,14 @@ namespace VantanSchoolFestival2026
             _targetCar.RequestJump();
         }
 
-        /// <summary>Boost アクションが押された / 離されたときに呼ばれる。</summary>
+        /// <summary>
+        /// Boost アクションが押された / 離されたときに呼ばれる。
+        /// </summary>
+        /// <remarks>
+        /// ふつうのボタンは「押した瞬間」しか呼ばれないので、離したことが分からない。
+        /// そこで RCInputActions の Boost には Interactions に「Press（Press And Release）」を付けて、
+        /// 離したときにも呼ばれるようにしている（value.isPressed が false で届く）。
+        /// </remarks>
         private void OnBoost(InputValue value)
         {
             if (_targetCar == null) return;

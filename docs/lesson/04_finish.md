@@ -13,6 +13,12 @@
 | Bumper | ぶつかると、はじき飛ばされる | Bounce Power（はじく強さ） |
 | MovingFloor | 行ったり来たりする床。乗ると一緒に運ばれる | Move Offset（どこまで動くか）、Travel Time（片道の時間） |
 
+![完成版コース（00_Sample）のバンパー広場。ピンクの円柱が Bumper](../images/course-bumpers.png)
+
+![完成版コースの湖。緑の板が MovingFloor（動く床）で、青い門が Checkpoint](../images/course-lake.png)
+
+> 💡 上の写真は、完成版のコース（00_Sample）で仕掛けを使っている場所です。どんな置き方をするとおもしろいか、参考にしましょう。
+
 1. 好きな仕掛けを 2 つ以上置いてみましょう。
 2. 置いた仕掛けを選んで、Inspector の数字を変えてみましょう。**その仕掛けだけ** 性質が変わります。
 3. 再生して、難しすぎないか・簡単すぎないか試しましょう。

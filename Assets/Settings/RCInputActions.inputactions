@@ -8,7 +8,7 @@
       "actions": [
         { "name": "Move", "type": "Value", "id": "6f1c2a10-0001-4a00-9000-000000000101", "expectedControlType": "Vector2", "processors": "", "interactions": "", "initialStateCheck": true },
         { "name": "Jump", "type": "Button", "id": "6f1c2a10-0001-4a00-9000-000000000102", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
-        { "name": "Boost", "type": "Button", "id": "6f1c2a10-0001-4a00-9000-000000000103", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+        { "name": "Boost", "type": "Button", "id": "6f1c2a10-0001-4a00-9000-000000000103", "expectedControlType": "Button", "processors": "", "interactions": "Press(behavior=2)", "initialStateCheck": false },
         { "name": "Respawn", "type": "Button", "id": "6f1c2a10-0001-4a00-9000-000000000104", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
         { "name": "SwitchMap", "type": "Button", "id": "6f1c2a10-0001-4a00-9000-000000000105", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false }
       ],
@@ -35,7 +35,7 @@
       "actions": [
         { "name": "Move", "type": "Value", "id": "6f1c2a10-0002-4a00-9000-000000000201", "expectedControlType": "Vector2", "processors": "", "interactions": "", "initialStateCheck": true },
         { "name": "Jump", "type": "Button", "id": "6f1c2a10-0002-4a00-9000-000000000202", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
-        { "name": "Boost", "type": "Button", "id": "6f1c2a10-0002-4a00-9000-000000000203", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
+        { "name": "Boost", "type": "Button", "id": "6f1c2a10-0002-4a00-9000-000000000203", "expectedControlType": "Button", "processors": "", "interactions": "Press(behavior=2)", "initialStateCheck": false },
         { "name": "Respawn", "type": "Button", "id": "6f1c2a10-0002-4a00-9000-000000000204", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false },
         { "name": "SwitchMap", "type": "Button", "id": "6f1c2a10-0002-4a00-9000-000000000205", "expectedControlType": "Button", "processors": "", "interactions": "", "initialStateCheck": false }
       ],

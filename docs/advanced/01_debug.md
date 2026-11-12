@@ -4,6 +4,8 @@
 > **使うシーン**：`Assets/Scenes/03_Lesson_Debug`
 > **目安**：15 分（プログラムは書きません）
 
+![03_Lesson_Debug：一見ふつうのコースだけど、いくつか問題がかくれている](../images/scene-03-lesson-debug.png)
+
 ## 1. まずは遊んでみる
 
 `03_Lesson_Debug` を開いて ▶ を押してみましょう。……うまく遊べません！
