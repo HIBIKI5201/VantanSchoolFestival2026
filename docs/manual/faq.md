@@ -27,6 +27,16 @@
 - 木と岩の列の外に出ると、Grace Time（標準 2.5 秒）で戻されます。
 - 自分で作ったコースで起きる場合は、走る場所が **CourseArea** でおおわれているか確認しましょう。Scene ビューで緑の半透明の箱として見えます。
 
+## ゴールに入ってもゴールにならない
+
+- 画面に **「まだゴールできません　チェックポイント 3 / 9」** のように出たら、通っていないチェックポイントがあります。
+  `00_Sample` は、**チェックポイントを全部通らないとゴールできない** 設定です（GameManager の **Require All Checkpoints** が ON）。
+- 通ったチェックポイントは、門の色が変わります。色が変わっていない門を探して、通りましょう。
+- 通らなくてもゴールできるようにしたいときは、**GameManager** の **Require All Checkpoints** を OFF にします。
+- 画面に何も出ないときは、Hierarchy に **GameManager** があるか、ゴールの門に **Goal** が付いているかを確認しましょう（ステージチェッカーでも調べられます）。
+
+> 💡 Tips：この表示の文字と、表示しておく時間は、**GameUI** の **HudPresenter** にある **Missing Checkpoint Format** と **Missing Checkpoint Show Time** で変えられます。
+
 ## カメラが車を追いかけない
 
 **FollowCamera** の **Tracking Target** に車が入っているか確認します。MainCamera に **CinemachineBrain** が付いているかも確認しましょう。
