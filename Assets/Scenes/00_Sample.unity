@@ -3024,6 +3024,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6011276295093821908, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
+      propertyPath: _pushPower
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011276295093821908, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
+      propertyPath: _speedMultiplier
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7397500940365189049, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
       propertyPath: m_Name
       value: SpeedPad
@@ -9635,6 +9643,14 @@ PrefabInstance:
     - target: {fileID: 1021697015861403558, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011276295093821908, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
+      propertyPath: _pushPower
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011276295093821908, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
+      propertyPath: _speedMultiplier
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7397500940365189049, guid: 37548c96d6cd3bd4188e68e733632624, type: 3}
       propertyPath: m_Name

@@ -54,13 +54,15 @@ Assets/
 │   ├─ Parts/
 │   │   ├─ Drive/   … 駆動方式（付け替えると走り方が変わる）
 │   │   └─ Options/ … 追加パーツ（ジャンプ・ブースト・色）
-│   └─ Stage/     … ステージ部品（ゴール・加速床など）
+│   ├─ Stage/     … ステージ部品（ゴール・加速床など）
+│   └─ Effects/   … 演出（砂ぼこり・ブーストの炎・水しぶきなど）
 ├─ Editor/        … エディタ拡張（ステージチェッカー・コンポーネント説明）※ゲームには含まれない
 ├─ Prefabs/       … 置くだけで使える部品
 │   ├─ Player/    … ラジコンカー
 │   ├─ Stage/     … 床・道路・壁・柵・坂・ゴールなど
 │   ├─ Nature/    … 木・岩・水（プリミティブで作ったローポリ素材）
 │   └─ System/    … GameManager・PlayerController・カメラ・Volume・UI
+├─ Effects/       … 演出の見た目（Shader Graph・パーティクル・アニメーション）
 ├─ Materials/     … 色や質感の設定（Nature/ に地面の色テクスチャと Terrain レイヤー）
 ├─ Models/        … スクリプトで作った簡単なメッシュ（円すい・岩など）
 ├─ Settings/      … URP の設定・入力設定 (RCInputActions)・ポストプロセス (PostProcessProfile)

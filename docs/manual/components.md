@@ -57,6 +57,20 @@ Unity の中では、それぞれの部品の **「▶ このコンポーネン�
 
 > 💡 プログラムがどんな考え方で作られているかは、[上級 3. しくみを知ろう](../advanced/03_how-it-works.md) で説明しています。
 
+## 演出（プレハブにはじめから入っている）
+
+授業では使いませんが、見た目を良くするための部品です。外しても、ゲームはそのまま遊べます。
+
+| コンポーネント | 役割 | 付いている場所 |
+| --- | --- | --- |
+| **CarDustEffect** | 走っているときに砂ぼこりを出す | RCCar の子の `Effects` |
+| **BoostEffect** | ブースト中に炎と光の帯を出す | RCCar の子の `Effects` |
+| **CameraShakeOnHit** | 強くぶつかったら画面をゆらす | RCCar の子の `Effects` |
+| **WaterSplash** | 水に落ちたら水しぶきを出す | Water の子の `SplashTrigger` |
+| **AnimatorTriggerOnEnable** | 表示されたらアニメーションを切り替える | Goal の子の `GoalEffect` |
+
+> 💡 くわしくは [上級 4. かくれた演出を見つけよう](../advanced/04_hidden-effects.md) を見てください。
+
 ---
 
 [目次に戻る](../index.md)

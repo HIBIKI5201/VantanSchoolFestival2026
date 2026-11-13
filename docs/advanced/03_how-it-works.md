@@ -84,4 +84,4 @@ public class MyParts : MonoBehaviour { }
 
 ---
 
-[← 上級 2. スクリプトを書こう](02_script.md) ｜ [目次](../index.md)
+[← 上級 2. スクリプトを書こう](02_script.md) ｜ [目次](../index.md) ｜ [上級 4. かくれた演出を見つけよう →](04_hidden-effects.md)
