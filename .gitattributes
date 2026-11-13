@@ -182,3 +182,12 @@ LightingData.asset     binary
 # （GitHub Pages は LFS の中身を配信しないので、LFS に入れると画像が表示されない）
 docs/**/*.png           -filter -diff -merge -text
 docs/**/*.jpg           -filter -diff -merge -text
+
+# 画像は LFS に入れず、通常のファイルとして保存する
+# （GitHub の「Download ZIP」には LFS の中身が入らず、画像の代わりに
+#   短いテキスト（ポインタ）が入ってしまい、Unity で読み込めなくなるため）
+*.png                   -filter -diff -merge binary
+*.jpg                   -filter -diff -merge binary
+*.jpeg                  -filter -diff -merge binary
+*.tga                   -filter -diff -merge binary
+*.psd                   -filter -diff -merge binary
