@@ -47,6 +47,7 @@ Unity もプログラミングも初めての人が、**ラジコンカーのゲ
 | [Unity 操作のコツ](manual/editor-shortcuts.md) | Scene ビューの動かし方・ショートカット・スナップなどの便利な置き方 |
 | [プロジェクトの構成](manual/project-structure.md) | フォルダ・シーン・プレハブの場所 |
 | [コンポーネント一覧](manual/components.md) | 全部の部品の説明と、よく変える数字 |
+| [調整できる数字の一覧](manual/parameters.md) | Inspector で変えられる数字を全部（車・ルール・コースアウト・仕掛け・表示・演出） |
 | [入力と操作方法](manual/input.md) | 操作のキーと、キーの割り当ての変え方 |
 | [カメラ・画面・地形](manual/visuals.md) | カメラ・画面の色合い・地形 |
 | [エディタ拡張（便利な道具）](manual/editor-tools.md) | ステージチェッカー・部品の説明・このマニュアル |
