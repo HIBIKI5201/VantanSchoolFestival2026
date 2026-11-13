@@ -43,6 +43,14 @@ namespace VantanSchoolFestival2026
         [TextArea(2, 3)]
         [SerializeField] private string _courseOutFormat = "コースアウト！\n<size=28>コースに戻ろう… {0}</size>";
 
+        [Tooltip("チェックポイントが残っていてゴールできなかったときに表示する文字。{0} に通った数、{1} に全部の数が入ります。")]
+        [TextArea(2, 3)]
+        [SerializeField] private string _missingCheckpointFormat = "まだゴールできません\n<size=28>チェックポイント {0} / {1}</size>";
+
+        [Tooltip("上の文字を表示しておく時間（秒）。")]
+        [Range(0.5f, 10f)]
+        [SerializeField] private float _missingCheckpointShowTime = 2.5f;
+
         // 車のブーストパーツ（付いていなければ null）
         private BoostParts _boost;
 
@@ -96,6 +104,11 @@ namespace VantanSchoolFestival2026
                     if (_judge != null && _judge.OutTime > 0.5f)
                     {
                         return string.Format(_courseOutFormat, Mathf.CeilToInt(_judge.TimeLeft));
+                    }
+                    // チェックポイントが残っていてゴールできなかったら、しばらく知らせる
+                    if (Time.time - gm.GoalRefusedTime < _missingCheckpointShowTime)
+                    {
+                        return string.Format(_missingCheckpointFormat, gm.PassedCheckpointCount, gm.CheckpointCount);
                     }
                     // スタート直後の 1 秒だけ GO! を出す
                     return gm.ElapsedTime < 1f ? _goText : "";

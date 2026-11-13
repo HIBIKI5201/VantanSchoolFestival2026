@@ -95,6 +95,12 @@ namespace VantanSchoolFestival2026
         /// <summary>通過済みのチェックポイント数。</summary>
         public int PassedCheckpointCount => _passedCheckpoints.Count;
 
+        /// <summary>
+        /// チェックポイントが残っていてゴールできなかった時刻（Time.time）。
+        /// 画面に「チェックポイントが残っています」と出すために使う。まだ無ければ -100。
+        /// </summary>
+        public float GoalRefusedTime { get; private set; } = -100f;
+
         // 通過済みのチェックポイント（同じものを 2 回数えないように HashSet を使う）
         private readonly HashSet<Checkpoint> _passedCheckpoints = new HashSet<Checkpoint>();
 
@@ -222,6 +228,7 @@ namespace VantanSchoolFestival2026
             {
                 if (State == GameState.Playing)
                 {
+                    GoalRefusedTime = Time.time;
                     Debug.Log("[GameManager] まだ通過していないチェックポイントがあります！");
                 }
                 return;
