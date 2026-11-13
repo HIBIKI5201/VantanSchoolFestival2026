@@ -78,7 +78,7 @@ Assets/
 
 同じ内容を次の 2 か所で読めます。
 
-- **Web**：GitHub Pages（https://hibiki5201.github.io/VantanSchoolFestival2026/）
+- **Web**：[GitHub Pages](https://hibiki5201.github.io/VantanSchoolFestival2026/)
 - **Unity エディタ**：メニュー **VantanSchoolFestival2026 → マニュアル・教材**
 
 ## 文字コードについて
