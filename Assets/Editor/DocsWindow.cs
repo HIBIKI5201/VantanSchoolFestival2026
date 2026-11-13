@@ -40,7 +40,6 @@ namespace VantanSchoolFestival2026.EditorTools
         private const string IndexPage = "index.md";
 
         /// <summary>「初めて開いたか」を覚えておくキーの先頭。</summary>
-        private const string FirstOpenKeyPrefix = "VantanSchoolFestival2026.DocsWindow.Opened.";
 
         /// <summary>docs フォルダの場所（Assets と同じ階層）。</summary>
         private static string DocsRoot => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "docs"));
@@ -81,23 +80,6 @@ namespace VantanSchoolFestival2026.EditorTools
             window.titleContent = new GUIContent("マニュアル・教材", EditorGUIUtility.IconContent("_Help").image);
             window.minSize = new Vector2(600, 400);
             window.Navigate(page, addHistory: false);
-        }
-
-        /// <summary>
-        /// InitializeOnLoadMethod … エディタの起動時やスクリプトの再読み込み時に自動で呼ばれる。
-        /// このプロジェクトを初めて開いたときだけ、マニュアルを自動で表示する。
-        /// </summary>
-        [InitializeOnLoadMethod]
-        private static void OpenOnFirstLaunch()
-        {
-            // EditorPrefs はパソコン全体で共有されるので、プロジェクトの場所をキーに含める
-            string key = FirstOpenKeyPrefix + Application.dataPath;
-            if (EditorPrefs.GetBool(key, false)) return;
-            if (Application.isBatchMode) return;   // コマンドラインで動かしているときは開かない
-
-            EditorPrefs.SetBool(key, true);
-            // delayCall … エディタの準備が終わってから実行する
-            EditorApplication.delayCall += OpenIndex;
         }
 
         // ---------------------------------------------------------------------
